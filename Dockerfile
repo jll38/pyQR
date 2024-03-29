@@ -9,7 +9,7 @@ COPY . .
 
 RUN mkdir qr_codes
 
-ENV QR_DATA_URL="https://github.com/jll38"
+ENV QR_DATA_URL="https://github.com/jll38/pyQR/blob/main/README.md"
 ENV QR_CODE_FILENAME="qr_codes/github_qr.png"
 
 CMD ["python", "main.py"]
