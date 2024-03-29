@@ -13,4 +13,5 @@ docker run -d --name qr-generator \ -e QR_DATA_URL='https://github.com/jll38/pyQ
 ```
 
 Output:
+<br/>
 <img src="./qr_codes/your_qr_code.png">
