@@ -1,14 +1,15 @@
-FROM python:3.9-slim
+FROM python:3.9
 
-# Set the working directory in the container
-WORKDIR /app
+WORKDIR /usr/src/app
+
 COPY ./requirements.txt ./requirements.txt
 
-RUN pip install -r requirements.txt
-# Copy the current directory contents into the container at /app
-COPY . /app
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
 
-RUN pip install --no-cache-dir qrcode[pil]
+RUN mkdir qr_codes
 
-ENTRYPOINT ["python", "main.py"]
-CMD ["--url", "https://github.com/kaw393939"]
+ENV QR_DATA_URL="https://github.com/kaw393939"
+ENV QR_CODE_FILENAME="qr_codes/github_qr.png"
+
+CMD ["python", "main.py"]
