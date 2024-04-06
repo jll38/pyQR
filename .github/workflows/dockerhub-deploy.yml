@@ -23,12 +23,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: julianlechner/qr-code:latest  # Replace 'yourusername' with your Docker Hub username
-
-    - name: Run Container
-      run: |
-        docker run -d --name qr-generator \
-        -e QR_DATA_URL='https://github.com/jll38/pyQR/blob/main/README.md' \
-        -e QR_CODE_FILENAME='qr_codes/your_qr_code.png' \
-        -v $(pwd)/qr_codes:/usr/src/app/qr_codes \
-        yourusername/qr-code-generator  # Again, replace 'yourusername' with your Docker Hub username
+        tags: julianlechner/qr-code:latest
