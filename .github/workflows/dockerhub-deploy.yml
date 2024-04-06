@@ -1,0 +1,34 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ main ]  # Trigger on push to main branch, adjust if necessary
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check Out Repo
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: julianlechner/qr-code:latest  # Replace 'yourusername' with your Docker Hub username
+
+    - name: Run Container
+      run: |
+        docker run -d --name qr-generator \
+        -e QR_DATA_URL='https://github.com/jll38/pyQR/blob/main/README.md' \
+        -e QR_CODE_FILENAME='qr_codes/your_qr_code.png' \
+        -v $(pwd)/qr_codes:/usr/src/app/qr_codes \
+        yourusername/qr-code-generator  # Again, replace 'yourusername' with your Docker Hub username
